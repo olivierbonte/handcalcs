@@ -1254,7 +1254,7 @@ def latex_repr(
         if use_scientific_notation:
             rendered_string = f"{item:.{precision}e{preferred_formatter}}"
         else:
-            rendered_string = f"{item:.{precision}f{preferred_formatter}}"
+            rendered_string = f"{item:.{precision}g{preferred_formatter}}"
     except (ValueError, TypeError):
         try:
             if use_scientific_notation and isinstance(item, complex):
