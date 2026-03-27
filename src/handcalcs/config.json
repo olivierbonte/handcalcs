@@ -1,15 +1,16 @@
 {
     "decimal_separator": ".",
-    "latex_block_start": "\\[",
-    "latex_block_end": "\\]",
+    "latex_block_start": "$$",
+    "latex_block_end": "$$",
     "math_environment_start": "aligned",
     "math_environment_end": "aligned",
-    "line_break": "\\\\[10pt]",
+    "line_break": "\\\\",
     "use_scientific_notation": false,
     "display_precision": 3,
     "underscore_subscripts": true,
     "greek_exclusions": [],
     "param_columns": 3,
     "preferred_string_formatter": "L",
-    "custom_symbols": {}
+    "custom_symbols": {},
+    "custom_brackets": {}
 }

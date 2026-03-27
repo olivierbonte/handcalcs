@@ -47,11 +47,11 @@ from test_handcalcs import error_cell
 
 config_options = {
     "decimal_separator": ".",
-    "latex_block_start": "\\[",
-    "latex_block_end": "\\]",
+    "latex_block_start": "$$",
+    "latex_block_end": "$$",
     "math_environment_start": "aligned",
     "math_environment_end": "aligned",
-    "line_break": "\\\\[10pt]",
+    "line_break": "\\\\",
     "use_scientific_notation": False,
     "display_precision": 3,
     "underscore_subscripts": True,
@@ -60,6 +60,14 @@ config_options = {
     "param_columns": 3,
     "preferred_string_formatter": "L",
     "custom_symbols": {"V_dot": "\\dot{V}"},
+    "custom_brackets": {
+        "parenthesis": "ˉ",
+        "square_brackets": "ˍ",
+        "angle_brackets": "ˆ",
+        "curly_brackets": "ǂ",
+        "pipes": "ǀ",
+        "double_pipes": "ǁ",
+    }
 }
 
 config_underscore_spaces = config_options.copy()
@@ -274,55 +282,55 @@ error_cell_renderer = handcalcs.handcalcs.LatexRenderer(
 def test_integration():
     assert (
         cell_1_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\na &= 2 \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\ny &= 6 \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\n\\alpha_{\\eta_{\\psi}} &= \\frac{ 4 }{ \\left( y \\right) ^{ \\left( a + 1 \\right) } }  = \\frac{ 4 }{ \\left( 6 \\right) ^{ \\left( 2 + 1 \\right) } } &= 1.85185 \\times 10 ^ {-2} \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\n\\alpha_{\\eta_{\\psi}} &= 1.85185 \\times 10 ^ {-2} \\; \n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\na &= 2 \\; \\;\\textrm{(Comment)}\n\\\\\ny &= 6 \\; \\;\\textrm{(Comment)}\n\\\\\n\\alpha_{\\eta_{\\psi}} &= \\frac{ 4 }{ \\left( y \\right) ^{ \\left( a + 1 \\right) } }  = \\frac{ 4 }{ \\left( 6 \\right) ^{ \\left( 2 + 1 \\right) } } &= 1.85185 \\times 10 ^ {-2} \\; \\;\\textrm{(Comment)}\n\\\\\n\\alpha_{\\eta_{\\psi}} &= 1.85185 \\times 10 ^ {-2} \\; \n\\end{aligned}\n$$"
     )
     assert (
         cell_2_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\nx &= 2 \\; \n\\\\[10pt]\n&\\text{Since, } x \\geq 1 \\rightarrow \\left( 2 \\geq 1 \\right) : \\; \\;\\textrm{(Comment)} \\\\[10pt]\nb &= x \\cdot 1  = 2 \\cdot 1 &= 2  \n\\\\[10pt]\nc &= 2 \\; \n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\nx &= 2 \\; \n\\\\\n&\\text{Since, } x \\geq 1 \\rightarrow \\left( 2 \\geq 1 \\right) : \\; \\;\\textrm{(Comment)} \\\\\nb &= x \\cdot 1  = 2 \\cdot 1 &= 2  \n\\\\\nc &= 2 \\; \n\\end{aligned}\n$$"
     )
     assert (
         cell_2b_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\nx &= 10 \\; \n\\\\[10pt]\nb &= x \\cdot 1  = 10 \\cdot 1 &= 10  \n\\\\[10pt]\nc &= 10 \\; \n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\nx &= 10 \\; \n\\\\\nb &= x \\cdot 1  = 10 \\cdot 1 &= 10  \n\\\\\nc &= 10 \\; \n\\end{aligned}\n$$"
     )
     assert (
         cell_3_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\ny &= -2 \\; \n\\\\[10pt]\nb &= 3 \\; \n\\\\[10pt]\nc &= 4 \\; \n\\\\[10pt]\n\\alpha_{\\eta_{\\psi}} &= 23 \\; \n\\\\[10pt]\nd &= \\sqrt { \\frac{ 1 }{ b } \\cdot \\frac{1} { c } }  = \\sqrt { \\frac{ 1 }{ 3 } \\cdot \\frac{1} { 4 } } &= 2.887 \\times 10 ^ {-1}  \n\\\\[10pt]\nf &= \\left \\lceil \\left( \\alpha_{\\eta_{\\psi}} + 1 \\right) \\bmod 2 \\right \\rceil  = \\left \\lceil \\left( 23 + 1 \\right) \\bmod 2 \\right \\rceil &= 0  \n\\\\[10pt]\ng &= \\int_{ y } ^ { b } \\left( x \\right) ^{ 2 } + 3 \\cdot x \\; dx  = \\int_{ -2 } ^ { 3 } \\left( x \\right) ^{ 2 } + 3 \\cdot x \\; dx &= [42,\ 1.000 \\times 10 ^ {-3}]  \n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\ny &= -2 \\; \n\\\\\nb &= 3 \\; \n\\\\\nc &= 4 \\; \n\\\\\n\\alpha_{\\eta_{\\psi}} &= 23 \\; \n\\\\\nd &= \\sqrt { \\frac{ 1 }{ b } \\cdot \\frac{1} { c } }  = \\sqrt { \\frac{ 1 }{ 3 } \\cdot \\frac{1} { 4 } } &= 2.887 \\times 10 ^ {-1}  \n\\\\\nf &= \\left \\lceil \\left( \\alpha_{\\eta_{\\psi}} + 1 \\right) \\bmod 2 \\right \\rceil  = \\left \\lceil \\left( 23 + 1 \\right) \\bmod 2 \\right \\rceil &= 0  \n\\\\\ng &= \\int_{ y } ^ { b } \\left( x \\right) ^{ 2 } + 3 \\cdot x \\; dx  = \\int_{ -2 } ^ { 3 } \\left( x \\right) ^{ 2 } + 3 \\cdot x \\; dx &= [42,\ 1.000 \\times 10 ^ {-3}]  \n\\end{aligned}\n$$"
     )
     assert (
         cell_4_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\na &= 2 \\; \\;\\textrm{(Comment)}\n &b &= 3 \\; \n &c &= 5 \\; \n\\\\[10pt]\n y &= 6 \\; \\;\\textrm{(Comment)}\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\na &= 2 \\; \\;\\textrm{(Comment)}\n &b &= 3 \\; \n &c &= 5 \\; \n\\\\\n y &= 6 \\; \\;\\textrm{(Comment)}\n\\end{aligned}\n$$"
     )
     assert (
         cell_5_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\na &= 10000001 \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\nb &= 20000002 \\; \n\\\\[10pt]\nc &= 30000003 \\; \n\\\\[10pt]\nx &= 5 \\; \n\\\\[10pt]\ny &= \\sqrt { \\frac{ a }{ b } } + \\arcsin \\left( \\sin \\left( \\frac{ b }{ c } \\right) \\right) + \\left( \\frac{ a }{ b } \\right) ^{ 0.5 } + \\sqrt { \\frac{ a \\cdot b + b \\cdot c }{ \\left( b \\right) ^{ 2 } } } + \\sin \\left( \\frac{ a }{ b } \\right) \\\\&= \\sqrt { \\frac{ 10000001 }{ 20000002 } } + \\arcsin \\left( \\sin \\left( \\frac{ 20000002 }{ 30000003 } \\right) \\right) + \\left( \\frac{ 10000001 }{ 20000002 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 10000001 \\cdot 20000002 + 20000002 \\cdot 30000003 }{ \\left( 20000002 \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 10000001 }{ 20000002 } \\right) \\\\&= 3.975 \\; \\;\\textrm{(Comment)}\\\\[10pt]\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\na &= 10000001 \\; \\;\\textrm{(Comment)}\n\\\\\nb &= 20000002 \\; \n\\\\\nc &= 30000003 \\; \n\\\\\nx &= 5 \\; \n\\\\\ny &= \\sqrt { \\frac{ a }{ b } } + \\arcsin \\left( \\sin \\left( \\frac{ b }{ c } \\right) \\right) + \\left( \\frac{ a }{ b } \\right) ^{ 0.5 } + \\sqrt { \\frac{ a \\cdot b + b \\cdot c }{ \\left( b \\right) ^{ 2 } } } + \\sin \\left( \\frac{ a }{ b } \\right) \\\\&= \\sqrt { \\frac{ 10000001 }{ 20000002 } } + \\arcsin \\left( \\sin \\left( \\frac{ 20000002 }{ 30000003 } \\right) \\right) + \\left( \\frac{ 10000001 }{ 20000002 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 10000001 \\cdot 20000002 + 20000002 \\cdot 30000003 }{ \\left( 20000002 \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 10000001 }{ 20000002 } \\right) \\\\&= 3.975 \\; \\;\\textrm{(Comment)}\\\\\n\\end{aligned}\n$$"
     )
     assert (
         cell_6_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\na &= 2 \\; \n\\\\[10pt]\nb &= 3 \\cdot a \\\\&= 3 \\cdot 2 \\\\&= 6  \\\\[10pt]\n\\\\[10pt]\ny &= 2 \\cdot a + 4 + 3 \\\\&= 2 \\cdot 2 + 4 + 3 \\\\&= 11  \\\\[10pt]\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\na &= 2 \\; \n\\\\\nb &= 3 \\cdot a \\\\&= 3 \\cdot 2 \\\\&= 6  \\\\\n\\\\\ny &= 2 \\cdot a + 4 + 3 \\\\&= 2 \\cdot 2 + 4 + 3 \\\\&= 11  \\\\\n\\end{aligned}\n$$"
     )
     assert (
         cell_7_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\na &= 23 \\; \n\\\\[10pt]\nb &= 43 \\; \n\\\\[10pt]\nc &= 52 \\; \n\\\\[10pt]\nf &= \\frac{ c }{ a } + b \\\\&= \\frac{ 52 }{ 23 } + 43 \\\\&= 45.26 \\; \\;\\textrm{(Comment)}\\\\[10pt]\n\\\\[10pt]\ng &= c \\cdot \\frac{ f }{ a } \\\\&= 52 \\cdot \\frac{ 45.26 }{ 23 } \\\\&= 102.33 \\; \\;\\textrm{(Comment)}\\\\[10pt]\n\\\\[10pt]\nd &= \\sqrt { \\frac{ a }{ b } } + \\arcsin \\left( \\sin \\left( \\frac{ b }{ c } \\right) \\right) + \\left( \\frac{ a }{ b } \\right) ^{ 0.5 } + \\sqrt { \\frac{ a \\cdot b + b \\cdot c }{ \\left( b \\right) ^{ 2 } } } + \\sin \\left( \\frac{ a }{ b } \\right) \\\\&= \\sqrt { \\frac{ 23 }{ 43 } } + \\arcsin \\left( \\sin \\left( \\frac{ 43 }{ 52 } \\right) \\right) + \\left( \\frac{ 23 }{ 43 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 23 \\cdot 43 + 43 \\cdot 52 }{ \\left( 43 \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 23 }{ 43 } \\right) \\\\&= 4.12 \\; \\;\\textrm{(Comment)}\\\\[10pt]\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\na &= 23 \\; \n\\\\\nb &= 43 \\; \n\\\\\nc &= 52 \\; \n\\\\\nf &= \\frac{ c }{ a } + b \\\\&= \\frac{ 52 }{ 23 } + 43 \\\\&= 45.26 \\; \\;\\textrm{(Comment)}\\\\\n\\\\\ng &= c \\cdot \\frac{ f }{ a } \\\\&= 52 \\cdot \\frac{ 45.26 }{ 23 } \\\\&= 102.33 \\; \\;\\textrm{(Comment)}\\\\\n\\\\\nd &= \\sqrt { \\frac{ a }{ b } } + \\arcsin \\left( \\sin \\left( \\frac{ b }{ c } \\right) \\right) + \\left( \\frac{ a }{ b } \\right) ^{ 0.5 } + \\sqrt { \\frac{ a \\cdot b + b \\cdot c }{ \\left( b \\right) ^{ 2 } } } + \\sin \\left( \\frac{ a }{ b } \\right) \\\\&= \\sqrt { \\frac{ 23 }{ 43 } } + \\arcsin \\left( \\sin \\left( \\frac{ 43 }{ 52 } \\right) \\right) + \\left( \\frac{ 23 }{ 43 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 23 \\cdot 43 + 43 \\cdot 52 }{ \\left( 43 \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 23 }{ 43 } \\right) \\\\&= 4.12 \\; \\;\\textrm{(Comment)}\\\\\n\\end{aligned}\n$$"
     )
     assert (
         cell_7b_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\n\\alpha_{\\zeta} &= 0.984 \\; \n\\\\[10pt]\nb'_{c} &= 43 \\; \n\\\\[10pt]\n\\mathrm{causal} &= 4.200+3.200j \\; \n\\\\[10pt]\nf &= \\frac{ \\mathrm{causal} }{ \\alpha_{\\zeta} } + b'_{c}  = \\frac{ 4.200+3.200j }{ 0.984 } + 43 &= 47.268+3.252j \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\ng &= \\mathrm{causal} \\cdot \\frac{ f }{ \\alpha_{\\zeta} }  = 4.200+3.200j \\cdot \\frac{ 47.268+3.252j }{ 0.984 } &= 191.179+167.599j \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\nd &= \\sqrt { \\frac{ \\alpha_{\\zeta} }{ b'_{c} } } + \\Sigma \\left( 1 ,\\  2 ,\\  3 \\right) + \\left( \\frac{ \\alpha_{\\zeta} }{ b'_{c} } \\right) ^{ 0.5 } + \\sqrt { \\frac{ \\alpha_{\\zeta} \\cdot b'_{c} + b'_{c} }{ \\left( 1.23 \\times 10 ^ {3} \\right) ^{ 2 } } } + \\sin \\left( \\frac{ \\alpha_{\\zeta} }{ b'_{c} } \\right)  = \\sqrt { \\frac{ 0.984 }{ 43 } } + \\Sigma \\left( 1 ,\\  2 ,\\  3 \\right) + \\left( \\frac{ 0.984 }{ 43 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 0.984 \\cdot 43 + 43 }{ \\left( 1.23 \\times 10 ^ {3} \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 0.984 }{ 43 } \\right) &= 6.333 \\; \\;\\textrm{(Comment)}\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\n\\alpha_{\\zeta} &= 0.984 \\; \n\\\\\nb'_{c} &= 43 \\; \n\\\\\n\\mathrm{causal} &= 4.200+3.200j \\; \n\\\\\nf &= \\frac{ \\mathrm{causal} }{ \\alpha_{\\zeta} } + b'_{c}  = \\frac{ 4.200+3.200j }{ 0.984 } + 43 &= 47.268+3.252j \\; \\;\\textrm{(Comment)}\n\\\\\ng &= \\mathrm{causal} \\cdot \\frac{ f }{ \\alpha_{\\zeta} }  = 4.200+3.200j \\cdot \\frac{ 47.268+3.252j }{ 0.984 } &= 191.179+167.599j \\; \\;\\textrm{(Comment)}\n\\\\\nd &= \\sqrt { \\frac{ \\alpha_{\\zeta} }{ b'_{c} } } + \\Sigma \\left( 1 ,\\  2 ,\\  3 \\right) + \\left( \\frac{ \\alpha_{\\zeta} }{ b'_{c} } \\right) ^{ 0.5 } + \\sqrt { \\frac{ \\alpha_{\\zeta} \\cdot b'_{c} + b'_{c} }{ \\left( 1.23 \\times 10 ^ {3} \\right) ^{ 2 } } } + \\sin \\left( \\frac{ \\alpha_{\\zeta} }{ b'_{c} } \\right)  = \\sqrt { \\frac{ 0.984 }{ 43 } } + \\Sigma \\left( 1 ,\\  2 ,\\  3 \\right) + \\left( \\frac{ 0.984 }{ 43 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 0.984 \\cdot 43 + 43 }{ \\left( 1.23 \\times 10 ^ {3} \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 0.984 }{ 43 } \\right) &= 6.333 \\; \\;\\textrm{(Comment)}\n\\end{aligned}\n$$"
     )
     assert (
         cell_8_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\na &= 23 \\; \n\\\\[10pt]\n\\dot{V} &= 43 \\; \n\\\\[10pt]\nc &= 52 \\; \n\\\\[10pt]\nf &= \\frac{ c }{ a } + \\dot{V}  = \\frac{ 52 }{ 23 } + 43 &= 45.261 \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\ng &= c \\cdot \\frac{ f }{ a }  = 52 \\cdot \\frac{ 45.261 }{ 23 } &= 102.329 \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\nd &= \\sqrt { \\frac{ a }{ \\dot{V} } + \\arcsin \\left( \\sin \\left( \\frac{ \\dot{V} }{ c } \\right) \\right) + \\left( \\frac{ a }{ \\dot{V} } \\right) ^{ 0.5 } + \\sqrt { \\frac{ a \\cdot \\dot{V} + \\dot{V} \\cdot c }{ \\left( \\dot{V} \\right) ^{ 2 } } } + \\sin \\left( \\frac{ a }{ \\dot{V} } \\right) } \\\\&= \\sqrt { \\frac{ 23 }{ 43 } + \\arcsin \\left( \\sin \\left( \\frac{ 43 }{ 52 } \\right) \\right) + \\left( \\frac{ 23 }{ 43 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 23 \\cdot 43 + 43 \\cdot 52 }{ \\left( 43 \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 23 }{ 43 } \\right) } \\\\&= 1.981 \\; \\;\\textrm{(Comment)}\\\\[10pt]\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\na &= 23 \\; \n\\\\\n\\dot{V} &= 43 \\; \n\\\\\nc &= 52 \\; \n\\\\\nf &= \\frac{ c }{ a } + \\dot{V}  = \\frac{ 52 }{ 23 } + 43 &= 45.261 \\; \\;\\textrm{(Comment)}\n\\\\\ng &= c \\cdot \\frac{ f }{ a }  = 52 \\cdot \\frac{ 45.261 }{ 23 } &= 102.329 \\; \\;\\textrm{(Comment)}\n\\\\\nd &= \\sqrt { \\frac{ a }{ \\dot{V} } + \\arcsin \\left( \\sin \\left( \\frac{ \\dot{V} }{ c } \\right) \\right) + \\left( \\frac{ a }{ \\dot{V} } \\right) ^{ 0.5 } + \\sqrt { \\frac{ a \\cdot \\dot{V} + \\dot{V} \\cdot c }{ \\left( \\dot{V} \\right) ^{ 2 } } } + \\sin \\left( \\frac{ a }{ \\dot{V} } \\right) } \\\\&= \\sqrt { \\frac{ 23 }{ 43 } + \\arcsin \\left( \\sin \\left( \\frac{ 43 }{ 52 } \\right) \\right) + \\left( \\frac{ 23 }{ 43 } \\right) ^{ 0.5 } + \\sqrt { \\frac{ 23 \\cdot 43 + 43 \\cdot 52 }{ \\left( 43 \\right) ^{ 2 } } } + \\sin \\left( \\frac{ 23 }{ 43 } \\right) } \\\\&= 1.981 \\; \\;\\textrm{(Comment)}\\\\\n\\end{aligned}\n$$"
     )
     assert (
         cell_9_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\n\\mu &= 0.44 \\; \n\\\\[10pt]\n\\mathrm{CritSeg} &= 1.5 \\; \\;\\textrm{(sendo extramemente)}\n\\\\[10pt]\n\\Delta_{h} &= 9.641 \\; \n\\\\[10pt]\n\\mathrm{Raio} &= \\left( \\frac{ 200 }{ 2 } \\right) \\; \\;\\textrm{(Config)}\n\\\\[10pt]\n\\mathrm{Raio}_{Minimo} &= \\mathrm{CritSeg} \\cdot \\frac{ \\Delta_{h} }{ \\left( \\sin \\left( \\arctan \\left( \\mu + 1 \\right) + 1 \\right) \\right) ^{ 2 } } \\; \n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\n\\mu &= 0.44 \\; \n\\\\\n\\mathrm{CritSeg} &= 1.5 \\; \\;\\textrm{(sendo extramemente)}\n\\\\\n\\Delta_{h} &= 9.641 \\; \n\\\\\n\\mathrm{Raio} &= \\left( \\frac{ 200 }{ 2 } \\right) \\; \\;\\textrm{(Config)}\n\\\\\n\\mathrm{Raio}_{Minimo} &= \\mathrm{CritSeg} \\cdot \\frac{ \\Delta_{h} }{ \\left( \\sin \\left( \\arctan \\left( \\mu + 1 \\right) + 1 \\right) \\right) ^{ 2 } } \\; \n\\end{aligned}\n$$"
     )
     assert (
         cell_10_renderer.render(config_options=config_options)
-        == '\\[\n\\begin{aligned}\n\\mu &= 45 + \\frac{ \\sin \\left( 34 + 2 \\right) }{ 2 } &= 4.450 \\times 10 ^ {1} \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\n\\tau &= \\sin \\left( \\log_{2} \\left( \\log_{9} \\left( 3 \\right) \\right) \\right) &= -8.415 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\eta &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\kappa &= \\left \\lfloor \\frac{ 23 }{ 4.5 } \\right \\rfloor &= 5 \\; \\;\\textrm{(Last comment)}\n\\\\[10pt]\n\\varepsilon &= 45 + \\frac{ \\sin \\left( 34 + 2 \\right) }{ 2 } &= 4.450 \\times 10 ^ {1} \\; \\;\\textrm{(Comment)}\n\\\\[10pt]\n\\epsilon &= \\sin \\left( \\log_{2} \\left( \\log_{9} \\left( 3 \\right) \\right) \\right) &= -8.415 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\vartheta &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\theta &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\varpi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\pi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\varrho &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\rho &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\varsigma &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\sigma &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\varphi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\phi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\[10pt]\n\\Omega &= \\varepsilon + \\epsilon + \\vartheta + \\theta + \\varpi + \\pi + \\varrho + \\rho + \\varsigma + \\sigma + \\varphi + \\phi \\\\&= 4.450 \\times 10 ^ {1} + -8.415 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} \\\\&= 4.975 \\times 10 ^ {1}  \\\\[10pt]\n\\end{aligned}\n\\]'
+        == '$$\n\\begin{aligned}\n\\mu &= 45 + \\frac{ \\sin \\left( 34 + 2 \\right) }{ 2 } &= 4.450 \\times 10 ^ {1} \\; \\;\\textrm{(Comment)}\n\\\\\n\\tau &= \\sin \\left( \\log_{2} \\left( \\log_{9} \\left( 3 \\right) \\right) \\right) &= -8.415 \\times 10 ^ {-1}  \n\\\\\n\\eta &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\kappa &= \\left \\lfloor \\frac{ 23 }{ 4.5 } \\right \\rfloor &= 5 \\; \\;\\textrm{(Last comment)}\n\\\\\n\\varepsilon &= 45 + \\frac{ \\sin \\left( 34 + 2 \\right) }{ 2 } &= 4.450 \\times 10 ^ {1} \\; \\;\\textrm{(Comment)}\n\\\\\n\\epsilon &= \\sin \\left( \\log_{2} \\left( \\log_{9} \\left( 3 \\right) \\right) \\right) &= -8.415 \\times 10 ^ {-1}  \n\\\\\n\\vartheta &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\theta &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\varpi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\pi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\varrho &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\rho &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\varsigma &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\sigma &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\varphi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\phi &= \\sqrt { \\frac{ 1 }{ \\log_{10} \\left( 6 \\right) } \\cdot \\frac{1} { \\ln \\left( 32 \\right) } } &= 6.089 \\times 10 ^ {-1}  \n\\\\\n\\Omega &= \\varepsilon + \\epsilon + \\vartheta + \\theta + \\varpi + \\pi + \\varrho + \\rho + \\varsigma + \\sigma + \\varphi + \\phi \\\\&= 4.450 \\times 10 ^ {1} + -8.415 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} + 6.089 \\times 10 ^ {-1} \\\\&= 4.975 \\times 10 ^ {1}  \\\\\n\\end{aligned}\n$$'
     )
     assert (
         cell_11_renderer.render(config_options=config_options)
-        == "\\[\n\\begin{aligned}\nF_{e_{x}} &= \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( E ,\\  I_{x} ,\\  k_{x} ,\\  L \\right) }{ \\mathrm{area} }  = \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( 200000.000 ,\\  300000000.000 ,\\  1.000 ,\\  3500 \\right) }{ 1000 } &= 4.500  \n\\\\[10pt]\nF_{e_{y}} &= \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( E ,\\  I_{y} ,\\  k_{y} ,\\  L \\right) }{ \\mathrm{area} }  = \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( 200000.000 ,\\  150000000.000 ,\\  1.000 ,\\  3500 \\right) }{ 1000 } &= 4.500  \n\\\\[10pt]\nF_{e} &= \\operatorname{min} \\left( F_{e_{x}} ,\\  F_{e_{y}} \\right)  = \\operatorname{min} \\left( 4.500 ,\\  4.500 \\right) &= 4.500  \n\\\\[10pt]\n\\lambda &= \\sqrt { \\frac{ f_{y} }{ F_{e} } }  = \\sqrt { \\frac{ 350 }{ 4.500 } } &= 8.819  \n\\\\[10pt]\nP_{r} &= \\phi \\cdot \\mathrm{area} \\cdot f_{y} \\cdot \\left( 1 + \\left( \\lambda \\right) ^{ \\left( 2 \\cdot n \\right) } \\right) ^{ \\left( \\frac{ \\left( - 1 \\right) }{ n } \\right) } \\\\&= 0.900 \\cdot 1000 \\cdot 350 \\cdot \\left( 1 + \\left( 8.819 \\right) ^{ \\left( 2 \\cdot 1.340 \\right) } \\right) ^{ \\left( \\frac{ \\left( - 1 \\right) }{ 1.340 } \\right) } \\\\&= 4041.179  \\\\[10pt]\n\\end{aligned}\n\\]"
+        == "$$\n\\begin{aligned}\nF_{e_{x}} &= \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( E ,\\  I_{x} ,\\  k_{x} ,\\  L \\right) }{ \\mathrm{area} }  = \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( 200000.000 ,\\  300000000.000 ,\\  1.000 ,\\  3500 \\right) }{ 1000 } &= 4.500  \n\\\\\nF_{e_{y}} &= \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( E ,\\  I_{y} ,\\  k_{y} ,\\  L \\right) }{ \\mathrm{area} }  = \\frac{ \\operatorname{euler\\ buckling\\ load} \\left( 200000.000 ,\\  150000000.000 ,\\  1.000 ,\\  3500 \\right) }{ 1000 } &= 4.500  \n\\\\\nF_{e} &= \\operatorname{min} \\left( F_{e_{x}} ,\\  F_{e_{y}} \\right)  = \\operatorname{min} \\left( 4.500 ,\\  4.500 \\right) &= 4.500  \n\\\\\n\\lambda &= \\sqrt { \\frac{ f_{y} }{ F_{e} } }  = \\sqrt { \\frac{ 350 }{ 4.500 } } &= 8.819  \n\\\\\nP_{r} &= \\phi \\cdot \\mathrm{area} \\cdot f_{y} \\cdot \\left( 1 + \\left( \\lambda \\right) ^{ \\left( 2 \\cdot n \\right) } \\right) ^{ \\left( \\frac{ \\left( - 1 \\right) }{ n } \\right) } \\\\&= 0.900 \\cdot 1000 \\cdot 350 \\cdot \\left( 1 + \\left( 8.819 \\right) ^{ \\left( 2 \\cdot 1.340 \\right) } \\right) ^{ \\left( \\frac{ \\left( - 1 \\right) }{ 1.340 } \\right) } \\\\&= 4041.179  \\\\\n\\end{aligned}\n$$"
     )
 
 
@@ -331,7 +339,7 @@ def test_integration():
 
 def test_handcalc():
     assert func_1(4, 5) == (
-        "\n\\begin{aligned}\na &= 2 \\cdot x  = 2 \\cdot 4 &= 8  \n\\\\[10pt]\nb &= 3 \\cdot a + y  = 3 \\cdot 8 + 5 &= 29  \n\\end{aligned}\n",
+        "$$\n\\begin{aligned}\na &= 2 \\cdot x  = 2 \\cdot 4 &= 8  \n\\\\\nb &= 3 \\cdot a + y  = 3 \\cdot 8 + 5 &= 29  \n\\end{aligned}\n$$",
         29,
     )
 
@@ -1128,7 +1136,7 @@ def format_lines():
             ]
         ),
         comment=" Comment",
-        latex="&\\text{Since, }x > 1 \\rightarrow \\left( 2 > 1 \\right):\\;\\;\\textrm{(Comment)}\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nb &= x \\cdot 1 = 2 \\cdot 1 &= 2\n\\\\\nc &= 2\\;\n",
+        latex="&\\text{Since, }x > 1 \\rightarrow \\left( 2 > 1 \\right):\\;\\;\\textrm{(Comment)}\n\\end{aligned}\n$$\n$$\n\\begin{aligned}\nb &= x \\cdot 1 = 2 \\cdot 1 &= 2\n\\\\\nc &= 2\\;\n",
     )
     assert handcalcs.handcalcs.format_lines(
         ConditionalLine(
@@ -1289,6 +1297,28 @@ def test_swap_for_greek():
         deque(["lamb", "=", 3]), **config_options
     ) == deque(["\\lambda", "=", 3])
 
+def test_swap_custom_brackets():
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarˉ1ˉ", "=", "1"]), **config_options # Test round brackets
+    ) == deque(["myvar(1)", "=", "1"])
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarˍ2ˍ", "=", "1"]), **config_options # Test square brackets
+    ) == deque(["myvar[2]", "=", "1"])
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarˆ3ˆ", "=", "1"]), **config_options # Test angle brackets
+    ) == deque([r"myvar\langle3\rangle", "=", "1"])
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarǂ4ǂ", "=", "1"]), **config_options # Test curly brackets
+    ) == deque([r"myvar\lbrace4\rbrace", "=", "1"])
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarǀ5ǀ", "=", "1"]), **config_options # Test pipes
+    ) == deque(["myvar|5|", "=", "1"])
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarǁ6ǁ", "=", "1"]), **config_options # Test double pipes
+    ) == deque([r"myvar\|6\|", "=", "1"])
+    assert handcalcs.handcalcs.swap_custom_brackets(
+        deque(["myvarˉˆ7ˆˉ_ǁAǁ", "=", "1"]), **config_options # Test mixed brackets
+    ) == deque([r"myvar(\langle7\rangle)_\|A\|", "=", "1"])
 
 def test_test_for_scientific_float():
     assert handcalcs.handcalcs.test_for_scientific_float("1.233e-3") == True

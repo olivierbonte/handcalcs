@@ -21,12 +21,12 @@ def ip(session_ip):
 
 def test_render(ip):
     output = ip.run_cell_magic(magic_name="render", line="_testing", cell="x = 99")
-    assert output == "\\[\n\\begin{aligned}\nx &= 99 \\; \n\\end{aligned}\n\\]"
+    assert output == "$$\n\\begin{aligned}\nx &= 99 \\; \n\\end{aligned}\n$$"
 
 
 def test_tex(ip):
     output = ip.run_cell_magic(magic_name="tex", line="_testing", cell="x = 99")
-    assert output == "\\[\n\\begin{aligned}\nx &= 99 \\; \n\\end{aligned}\n\\]"
+    assert output == "$$\n\\begin{aligned}\nx &= 99 \\; \n\\end{aligned}\n$$"
 
 
 def test_parse_line_args():
